@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝐄𝐗𝐏𝐄𝐑𝐓 𝐀𝐈 𝐒𝐈𝐆𝐍𝐀𝐋</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --background-color: #eef2f7;
+            --chat-bg-color: #ffffff;
+            --ai-message-bg: #f1f0f0;
+            --user-message-bg: #dcf8c6;
+            --text-color: #333;
+            --header-text-color: #ffffff;
+            --button-text-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background-color: var(--chat-bg-color);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 70vh;
+        }
+
+        .header {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--header-text-color);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5em;
+            font-weight: 600;
+            animation: lighting 2s infinite;
+        }
+
+        @keyframes lighting {
+            0% { color: #50fa7b; } /* সবুজ */
+            33% { color: #f1fa8c; } /* হলুদ */
+            66% { color: #bd93f9; } /* বেগুনি */
+            100% { color: #50fa7b; }
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 8px; /* আগের থেকে কম দূরত্ব */
+        }
+
+        .telegram-btn {
+            background-color: transparent;
+            color: var(--button-text-color);
+            border: 1px solid var(--button-text-color); /* বর্ডারের পুরুত্ব কমানো */
+            border-radius: 20px; /* বর্ডারের রাউন্ডনেস কমানো */
+            padding: 6px 12px; /* প্যাডিং কমানো */
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 0.8em; /* ফন্ট সাইজ কমানো */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .telegram-btn:hover {
+            background-color: var(--button-text-color);
+            color: var(--primary-color);
+        }
+
+        .lang-select {
+            background-color: var(--secondary-color);
+            color: var(--button-text-color);
+            border: 1px solid var(--button-text-color); /* বর্ডারের পুরুত্ব কমানো */
+            border-radius: 20px; /* বর্ডারের রাউন্ডনেস কমানো */
+            padding: 6px 12px; /* প্যাডিং কমানো */
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 0.8em; /* ফন্ট সাইজ কমানো */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+        }
+
+        .chat-box {
+            padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            padding: 12px 18px;
+            border-radius: 18px;
+            max-width: 85%;
+            word-wrap: break-word;
+            font-size: 1em;
+            line-height: 1.4;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .message:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .ai-message {
+            background-color: var(--ai-message-bg);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .user-message {
+            background-color: var(--user-message-bg);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .signal-message {
+            background-color: #ffeb3b;
+            color: #333;
+            font-weight: 600;
+            text-align: center;
+            align-self: center;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .input-area {
+            display: flex;
+            padding: 15px 20px;
+            border-top: 1px solid #ddd;
+            gap: 10px;
+        }
+
+        .input-area input {
+            flex-grow: 1;
+            padding: 12px 20px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            outline: none;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-area input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(106, 17, 203, 0.2);
+        }
+
+        .input-area button {
+            background-color: var(--primary-color);
+            color: var(--button-text-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+        }
+        
+        .input-area button:hover {
+            background-color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>𝐋𝐈𝐕𝐄 𝐀𝐈</h1>
+            <div class="header-buttons">
+                <a href="https://t.me/+9qJ0gWa3biQ2OGNl" class="telegram-btn" target="_blank">𝐉𝐨𝐢𝐧 𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐦</a>
+                <select class="lang-select">
+                    <option value="bn">বাংলা</option>
+                    <option value="en">𝐄𝐧𝐠𝐥𝐢𝐬𝐡</option>
+                </select>
+            </div>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <div class="message ai-message">🤖👋হাই, আমি ব্যক্তিগত প্রেডিকশন এক্সপার্ট! আজ আপনাকে কীভাবে সাহায্য করতে পারি❓</div>
+            <div class="message ai-message">Period' লাস্ট 3' ডিজিট কোড দিন⁉️</div>
+        </div>
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="𝑬𝒏𝒕𝒆𝒓 𝑳𝒂𝒔𝒕 3 𝑫𝒊𝒈𝒊𝒕 𝑷𝒆𝒓𝒊𝒐𝒅">
+            <button id="sendBtn">➤</button>
+        </div>
+    </div>
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        let expectingWinLoss = false;
+
+        function addMessage(text, isUser = false, isSignal = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            if (isUser) {
+                messageDiv.classList.add('user-message');
+            } else if (isSignal) {
+                messageDiv.classList.add('signal-message');
+            } else {
+                messageDiv.classList.add('ai-message');
+            }
+            messageDiv.textContent = text;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function handlePrediction(code) {
+            const num = parseInt(code);
+            if (isNaN(num) || code.length !== 3) {
+                addMessage('ভুল, Period ✘ অনুগ্রহ করে, সঠিক Period লিখুন❗👍', false);
+                return;
+            }
+
+            addMessage(code, true);
+            addMessage('Analysis....করা হচ্ছে, অপেক্ষা করুন.....🧞‍', false);
+
+            setTimeout(() => {
+                const signal = Math.random() > 0.5 ? 'Big' : 'Small';
+                addMessage(`${signal}`, false, true);
+                addMessage('সিগন্যাল, Win হলো না, Loss হলো❓', false);
+                expectingWinLoss = true;
+            }, 1000);
+        }
+
+        function handleWinLoss(input) {
+            const userResponse = input.toLowerCase();
+            if (userResponse === 'win' || userResponse === 'won' || userResponse === 'জিতেছি') {
+                addMessage(input, true);
+                addMessage('দারুণ! আমি খুশি যে সিগন্যাল\'টি জয় হয়েছে!🤑', false); // Escape character here
+                setTimeout(() => {
+                    addMessage('পরবর্তী ৩ ডিজিটের কোড দিন।', false);
+                    expectingWinLoss = false;
+                }, 1500);
+            } else if (userResponse === 'loss' || userResponse === 'lost' || userResponse === 'হেরেছি') {
+                addMessage(input, true);
+                addMessage('জ্বী,মনে হয়, আমি ভুল সিগন্যাল দিয়েছি!😬', false);
+                setTimeout(() => {
+                    addMessage('Period\' লাস্ট 3\' ডিজিট কোড দিন⁉️', false); // Escape character here
+                    expectingWinLoss = false;
+                }, 1500);
+            } else {
+                addMessage('অনুগ্রহ করে "win" বা "loss" লিখুন❗', false);
+            }
+        }
+
+        sendBtn.addEventListener('click', () => {
+            const input = userInput.value.trim();
+            if (input === '') return;
+
+            if (expectingWinLoss) {
+                handleWinLoss(input);
+            } else {
+                handlePrediction(input);
+            }
+            userInput.value = '';
+        });
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>
